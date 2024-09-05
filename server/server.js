@@ -1,6 +1,9 @@
-const express = require("express");
+import express from 'express';
+import cors from 'cors';
+import { connection } from './db/connection.js'; // Import connection using ES modules
+import routes from './Routes/routes.js'; // Import routes using ES modules
+
 const app = express();
-const cors = require("cors");
 
 const PORT = 7070; // Directly use the port number
 
@@ -8,11 +11,8 @@ const PORT = 7070; // Directly use the port number
 app.use(cors());
 app.use(express.json());
 
-// Database Connection
-const connection = require("./db/connection.js");
-
 // Using routes
-app.use(require("./Routes/routes.js"));
+app.use(routes);
 
 // Listen to the HTTP server
 connection.then((db) => {
@@ -21,6 +21,7 @@ connection.then((db) => {
   app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
   });
+
   app.on("error", (err) => console.log(`Failed to connect with HTTP server: ${err}`));
 }).catch((error) => {
   console.log(`Connection Failed...! ${error}`);
