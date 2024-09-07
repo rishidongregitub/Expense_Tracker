@@ -1,27 +1,19 @@
-const obj = [
-    {
-      type: "Saving",
-      color: "#f9c74f",
-      percent: 45,
-    },
-    {
-      type: "Investment",
-      color: "rgb(255, 99, 132)",
-      percent: 60,
-    },
-    {
-      type: "Expense",
-      color: "rgb(54, 162, 235)",
-      percent: 10,
-    },
-  ];
+import {default as api} from '../store/apiSlice';
   
   export default function Labels() {
+    const {data,isFetching, isSuccess, isError} = api.useGetLabelsQuery()
+      let Transaction;
+      if(isFetching){
+        Transaction  = <div>Fetching</div>
+      }else if(isSuccess){
+        Transaction = data.map((v, i) => <LabelComponent key={i} data={v}/>)
+      }else if(isError){
+        Transaction = <div>Error</div>
+      }
+
     return (
       <>
-        {obj.map((v, i) => (
-          <LabelComponent key={i} data={v}/>
-        ))}
+        {Transaction}
       </>
     );
   }
