@@ -9,10 +9,13 @@ export const apiSlice = createApi({
     getCategories: builder.query({
       // Get categories
       query: () => "/api/categories",
+      providesTags : ['categories']
     }),
     //get labels
     getLabels: builder.query({
       query: () => "/api/labels",
+      providesTags : ['transaction']
+
     }),
     //get transaction
     addTransaction: builder.mutation({
@@ -21,6 +24,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: initialTransaction,
       }),
+      invalidatesTags : ['transaction']
     }),
     //delete record
     deleteTransaction: builder.mutation({
@@ -29,6 +33,7 @@ export const apiSlice = createApi({
         method: "DELETE",
         body: recordId,
       }),
+      invalidatesTags : ['transaction']
     }),
   }),
 });
