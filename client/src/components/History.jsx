@@ -8,7 +8,7 @@ const History = () => {
   const handlerClick =(e)=>{
     if(!e.target.dataset.id) return 0;
     deleteTransaction({_id:e.target.dataset.id})
-  }
+  } 
   if (isFetching) {
     TransactionsContent = <div>Fetching...</div>;
   } else if (isSuccess) {
